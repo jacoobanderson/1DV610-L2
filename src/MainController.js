@@ -40,7 +40,7 @@ export class MainController {
   #getMainMenuFunctionality() {
     const functionality = {
         1: () => this.#addNewTodoList(),
-        2: () => this.#printToDoLists()
+        2: () => this.#createToDoListSubMenu()
     }
 
     return functionality
@@ -50,11 +50,27 @@ export class MainController {
     console.log("What do you want to name your todo list?")
   }
 
-  #printToDoLists() {
+  #printToDoListViewInstructions() {
+    console.log('Choose a list that you wish to view or update: \n')
+  }
+
+  #getToDoListsView() {
+    const view = {}
     for (let i = 0; i < this.#toDoLists.length; i++) {
         const toDoList = this.#toDoLists[i]
-        console.log((i + 1) + '. ' + toDoList.getName())
+        view[i + 1] = toDoList.getName()
     }
+
+    return view
+  }
+
+  #getToDoListsFunctionality() {
+    const functionality = {}
+    for (let i = 0; i < this.#toDoLists.length; i++) {
+        functionality[i + 1] = () => console.log('test')
+    }
+
+    return functionality
   }
 
   #promptUserForListName() {
@@ -79,6 +95,14 @@ export class MainController {
     const mainMenuFunctionality = this.#getMainMenuFunctionality()
     this.#ui.setMainMenu(mainMenuOptions)
     this.#ui.assignMainMenuFunctionality(mainMenuFunctionality)
+  }
+
+  #createToDoListSubMenu() {
+    const subMenuView = this.#getToDoListsView()
+    const subMenuFunctionality = this.#getToDoListsFunctionality()
+
+    this.#printToDoListViewInstructions()
+    this.#ui.createSubMenu(subMenuView, subMenuFunctionality)
   }
 
   #returnToMainMenu() {

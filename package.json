@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jacoobanderson/1DV610-L2#readme",
   "dependencies": {
-    "@jacoobanderson/interface-creator": "^1.0.9"
+    "@jacoobanderson/interface-creator": "^1.0.9",
+    "prompt-sync": "^4.2.0"
   }
 }

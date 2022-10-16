@@ -22,10 +22,12 @@ export class MainController {
   }
 
   #getMainMenuFunctionality() {
-    
+
   }
 
   #createMainMenu() {
+    const mainMenuOptions = this.#getMainMenuOptions()
+    const mainMenuFunctionality = this.#getMainMenuFunctionality()
     this.#ui.setMainMenu()
   }
 

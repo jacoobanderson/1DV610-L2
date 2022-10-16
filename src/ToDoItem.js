@@ -21,4 +21,15 @@ export class ToDoItem {
         return this.#deadline
     }
 
+    setDeadline(newDeadline) {
+        this.#deadline = newDeadline
+    }
+
+    getIsDone() {
+        return this.#isDone
+    }
+
+    setIsDone(isDone) {
+        this.#isDone = isDone
+    }
 }

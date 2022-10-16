@@ -39,7 +39,8 @@ export class MainController {
 
   #getMainMenuFunctionality() {
     const functionality = {
-        1: () => this.#addNewTodoList()
+        1: () => this.#addNewTodoList(),
+        2: () => this.#printToDoLists()
     }
 
     return functionality
@@ -47,6 +48,13 @@ export class MainController {
 
   #printNameOfListQuestion() {
     console.log("What do you want to name your todo list?")
+  }
+
+  #printToDoLists() {
+    for (let i = 0; i < this.#toDoLists.length; i++) {
+        const toDoList = this.#toDoLists[i]
+        console.log((i + 1) + '. ' + toDoList.getName())
+    }
   }
 
   #promptUserForListName() {
@@ -63,6 +71,7 @@ export class MainController {
   #addNewTodoList() {
     const listName = this.#promptUserForListName()
     this.#createToDoList(listName)
+    this.#returnToMainMenu()
   }
 
   #createMainMenu() {
@@ -72,8 +81,13 @@ export class MainController {
     this.#ui.assignMainMenuFunctionality(mainMenuFunctionality)
   }
 
+  #returnToMainMenu() {
+    this.#ui.start()
+  }
+
   start() {
     this.#createWelcomeMessage()
+    this.#createMainMenu()
     this.#ui.start()
   }
 }

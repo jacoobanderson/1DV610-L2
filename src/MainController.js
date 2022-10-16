@@ -28,7 +28,7 @@ export class MainController {
   #createMainMenu() {
     const mainMenuOptions = this.#getMainMenuOptions()
     const mainMenuFunctionality = this.#getMainMenuFunctionality()
-    this.#ui.setMainMenu()
+    this.#ui.setMainMenu(mainMenuOptions, mainMenuFunctionality)
   }
 
   start() {

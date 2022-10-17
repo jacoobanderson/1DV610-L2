@@ -2,6 +2,7 @@ export class ToDoItem {
     #description
     #deadline
     #isDone
+    #progression = 0
 
     constructor(description, deadline, isDone) {
         this.#description = description
@@ -31,5 +32,24 @@ export class ToDoItem {
 
     setIsDone(isDone) {
         this.#isDone = isDone
+    }
+
+    getProgression() {
+        return this.#progression
+    }
+
+    advanceProgression() {
+        this.#progression += 25
+        if (this.#progressionIsDone()) {
+            this.#isDone = true
+        }
+    }
+
+    #progressionIsDone() {
+        const maxProgression = 100
+        if (this.#progression === maxProgression) {
+            return true
+        }
+        return false
     }
 }

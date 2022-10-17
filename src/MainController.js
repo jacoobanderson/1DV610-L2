@@ -97,6 +97,7 @@ export class MainController {
       1: () => this.#changeItemDescription(toDoItem),
       2: () => this.#changeItemDeadline(toDoItem),
       3: () => this.#markItemAsDone(toDoItem),
+      4: () => this.#advanceProgression(toDoItem)
     }
     return editFunctionality
   }
@@ -107,6 +108,16 @@ export class MainController {
     const editFunctionality = this.#getEditItemFunctionality(selectedItem)
 
     this.#ui.createSubMenu(editView, editFunctionality)
+  }
+
+  #advanceProgression(toDoItem) {
+    try {
+        toDoItem.advanceProgression()
+        this.#returnToMainMenu()
+    } catch (error) {
+        console.log(error)
+    }
+
   }
 
   #changeItemDescription(toDoItem) {

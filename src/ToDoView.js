@@ -1,7 +1,6 @@
 import prompt from "prompt-sync"
 
 export class ToDoView {
-
   /**
    * Prompts a user.
    *
@@ -34,6 +33,7 @@ export class ToDoView {
       1: "Change description",
       2: "Change deadline",
       3: "Mark as done",
+      4: "Advance a TODO item progression by 25%"
     }
     return editView
   }
@@ -56,11 +56,11 @@ export class ToDoView {
   }
 
   printRemoveItemQuestion() {
-    console.log('Which item do you wish to remove?')
+    console.log("Which item do you wish to remove?")
     const input = this.#promptUser()
     return input
   }
-  
+
   printItemDescriptionQuestion() {
     console.log("What is the description of the TODO item?")
     const description = this.#promptUser()
@@ -87,13 +87,11 @@ export class ToDoView {
 
   printToDoItem(toDoItem) {
     const isDoneOrNot = toDoItem.getIsDone() ? "Done" : "Not done"
-    console.log(
-      toDoItem.getDescription() +
-        " (" +
-        toDoItem.getDeadline() +
-        "): " +
-        isDoneOrNot
-    )
+    const progression = toDoItem.getIsDone() ? "" : toDoItem.getProgression() + "%"
+    const description = toDoItem.getDescription()
+    const deadline = toDoItem.getDeadline()
+
+    console.log(description + " (" + deadline + "): " + isDoneOrNot + " " + progression)
   }
 
   promptUserForListName() {

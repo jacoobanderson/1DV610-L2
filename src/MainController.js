@@ -1,25 +1,16 @@
 import { InterfaceCreator } from "@jacoobanderson/interface-creator"
 import { ToDoList } from "./ToDoList.js"
-import prompt from "prompt-sync"
-import { ToDoItem } from "./ToDoItem.js"
+import { ToDoView } from "./ToDoView.js"
 
 export class MainController {
   #ui
+  #view
   #toDoLists
 
   constructor() {
     this.#ui = new InterfaceCreator()
+    this.#view = new ToDoView()
     this.#toDoLists = []
-  }
-
-  /**
-   * Prompts a user.
-   *
-   * @returns {string} Returns the input.
-   */
-  #promptUser() {
-    const readInput = prompt()
-    return readInput()
   }
 
   #createWelcomeMessage() {
@@ -30,14 +21,6 @@ export class MainController {
     )
   }
 
-  #getMainMenuOptions() {
-    const options = {
-      1: "Create a TODO list",
-      2: "View your TODO lists",
-    }
-    return options
-  }
-
   #getMainMenuFunctionality() {
     const functionality = {
       1: () => this.#addNewTodoList(),
@@ -45,14 +28,6 @@ export class MainController {
     }
 
     return functionality
-  }
-
-  #printNameOfListQuestion() {
-    console.log("What do you want to name your todo list?")
-  }
-
-  #printToDoListViewInstructions() {
-    console.log("Choose a list that you wish to view or update: \n")
   }
 
   #getToDoListsView() {
@@ -73,26 +48,15 @@ export class MainController {
     return functionality
   }
 
-  #printToDoItem(toDoItem) {
-    const isDoneOrNot = toDoItem.getIsDone() ? "Done" : "Not done"
-    console.log(
-      toDoItem.getDescription() +
-        " (" +
-        toDoItem.getDeadline() +
-        "): " +
-        isDoneOrNot
-    )
-  }
-
   #createToDoItemMenu(toDoList) {
-    console.log("Your current TODOs: \n")
+    this.#view.printCurrentToDosMessage()
     const toDoItems = toDoList.getItems()
 
     for (let i = 0; i < toDoItems.length; i++) {
-      this.#printToDoItem(toDoItems[i])
+      this.#view.printToDoItem(toDoItems[i])
     }
 
-    const itemView = this.#getItemView()
+    const itemView = this.#view.getItemView()
     const itemFunctionality = this.#getItemFunctionality(toDoList)
 
     this.#ui.createSubMenu(itemView, itemFunctionality)
@@ -109,61 +73,21 @@ export class MainController {
   }
 
   #removeItem(toDoList) {
-    const itemIndex = this.#printRemoveItemQuestion() - 1
+    const itemIndex = this.#view.printRemoveItemQuestion() - 1
     toDoList.removeToDoItem(itemIndex)
     this.#returnToMainMenu()
   }
 
-  #printRemoveItemQuestion() {
-    console.log('Which item do you wish to remove?')
-    const input = this.#promptUser()
-    return input
-  }
-  #printItemDescriptionQuestion() {
-    console.log("What is the description of the TODO item?")
-    const description = this.#promptUser()
-    return description
-  }
-
-  #printItemDeadlineQuestion() {
-    console.log("When is the deadline for this TODO item?")
-    const deadline = this.#promptUser()
-    return deadline
-  }
-
   #createNewItem(toDoList) {
-    const description = this.#printItemDescriptionQuestion()
-    const deadline = this.#printItemDeadlineQuestion()
+    const description = this.#view.printItemDescriptionQuestion()
+    const deadline = this.#view.printItemDeadlineQuestion()
     const isDone = false
     toDoList.createToDoItem(description, deadline, isDone)
     this.#returnToMainMenu()
   }
 
-  #getItemView() {
-    const itemView = {
-      1: "Create a new TODO item",
-      2: "Edit a TODO item",
-      3: "Remove a TODO item",
-    }
-    return itemView
-  }
-
-  #getEditItemView() {
-    const editView = {
-      1: "Change description",
-      2: "Change deadline",
-      3: "Mark as done",
-    }
-    return editView
-  }
-
-  #selectItemView() {
-    console.log("Which item do you wish to select?")
-    return this.#promptUser()
-  }
-
   #selectItem(toDoList) {
-    const selectedItemNumber = this.#selectItemView()
+    const selectedItemNumber = this.#view.selectItemView()
     const selectedItem = toDoList[selectedItemNumber - 1]
     return selectedItem
   }
@@ -179,26 +103,20 @@ export class MainController {
 
   #createEditItemSubMenu(toDoList) {
     const selectedItem = this.#selectItem(toDoList)
-    const editView = this.#getEditItemView()
+    const editView = this.#view.getEditItemView()
     const editFunctionality = this.#getEditItemFunctionality(selectedItem)
 
     this.#ui.createSubMenu(editView, editFunctionality)
   }
 
-  #printChangeItemDescriptionQuestion() {
-    console.log("What do you wish to change the description to?")
-    const input = this.#promptUser()
-    return input
-  }
-
   #changeItemDescription(toDoItem) {
-    const newDescription = this.#printChangeItemDescriptionQuestion()
+    const newDescription = this.#view.printChangeItemDescriptionQuestion()
     toDoItem.setDescription(newDescription)
     this.#returnToMainMenu()
   }
 
   #changeItemDeadline(toDoItem) {
-    const newDeadline = this.#printChangeItemDeadlineQuestion()
+    const newDeadline = this.#view.printChangeItemDeadlineQuestion()
     toDoItem.setDeadline(newDeadline)
     this.#returnToMainMenu()
   }
@@ -208,31 +126,19 @@ export class MainController {
     this.#returnToMainMenu()
   }
 
-  #printChangeItemDeadlineQuestion() {
-    console.log("What do you wish to change the deadline to?")
-    const input = this.#promptUser()
-    return input
-  }
-
-  #promptUserForListName() {
-    this.#printNameOfListQuestion()
-    const toDoListName = this.#promptUser()
-    return toDoListName
-  }
-
   #createToDoList(listName) {
     const newTodoList = new ToDoList(listName)
     this.#toDoLists.push(newTodoList)
   }
 
   #addNewTodoList() {
-    const listName = this.#promptUserForListName()
+    const listName = this.#view.promptUserForListName()
     this.#createToDoList(listName)
     this.#returnToMainMenu()
   }
 
   #createMainMenu() {
-    const mainMenuOptions = this.#getMainMenuOptions()
+    const mainMenuOptions = this.#view.getMainMenuOptions()
     const mainMenuFunctionality = this.#getMainMenuFunctionality()
     this.#ui.setMainMenu(mainMenuOptions)
     this.#ui.assignMainMenuFunctionality(mainMenuFunctionality)
@@ -241,7 +147,7 @@ export class MainController {
   #createToDoListSubMenu() {
     const subMenuView = this.#getToDoListsView()
     const subMenuFunctionality = this.#getToDoListsFunctionality()
-    this.#printToDoListViewInstructions()
+    this.#view.printToDoListViewInstructions()
     this.#ui.createSubMenu(subMenuView, subMenuFunctionality)
   }
 

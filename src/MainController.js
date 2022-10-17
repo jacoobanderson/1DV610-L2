@@ -1,6 +1,7 @@
 import { InterfaceCreator } from "@jacoobanderson/interface-creator"
 import { ToDoList } from "./ToDoList.js"
 import prompt from "prompt-sync"
+import { ToDoItem } from "./ToDoItem.js"
 
 export class MainController {
   #ui
@@ -60,17 +61,49 @@ export class MainController {
         const toDoList = this.#toDoLists[i]
         view[i + 1] = toDoList.getName()
     }
-
     return view
   }
 
   #getToDoListsFunctionality() {
     const functionality = {}
     for (let i = 0; i < this.#toDoLists.length; i++) {
-        functionality[i + 1] = () => console.log('test')
+        const toDoList = this.#toDoLists[i]
+        functionality[i + 1] = () => this.#createToDoItemMenu(toDoList)
+    }
+    return functionality
+  }
+
+  #printToDoItem(toDoItem) {
+    const isDoneOrNot = toDoItem.getIsDone() ? 'Done' : 'Not done'
+    console.log(toDoItem.getDescription() + ' (' + toDoItem.getDeadline() + '): ' + isDoneOrNot)
+  }
+
+
+  #createToDoItemMenu(toDoList) {
+    console.log('Your current TODOs: \n')
+    const toDoItems = toDoList.getItems()
+    toDoList.createToDoItem('A2 creation2')
+    toDoList.createToDoItem('A2 creation3')
+    toDoList.createToDoItem('A2 creation4')
+    toDoList.createToDoItem('A2 creation5')
+
+    for (let i = 0; i < toDoItems.length; i++) {
+        this.#printToDoItem(toDoItems[i])
     }
 
-    return functionality
+    const itemView = {
+        1: '\nCreate a new TODO item',
+        2: 'Edit a TODO item',
+        3: 'Remove a TODO item'
+    }
+
+    const itemFunctionality = {
+        1: () => console.log('test'),
+        2: () => console.log('test'),
+        3: () => console.log('test')
+    }
+    
+    this.#ui.createSubMenu(itemView, itemFunctionality)
   }
 
   #promptUserForListName() {
@@ -100,7 +133,6 @@ export class MainController {
   #createToDoListSubMenu() {
     const subMenuView = this.#getToDoListsView()
     const subMenuFunctionality = this.#getToDoListsFunctionality()
-
     this.#printToDoListViewInstructions()
     this.#ui.createSubMenu(subMenuView, subMenuFunctionality)
   }

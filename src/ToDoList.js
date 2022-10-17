@@ -9,6 +9,10 @@ export class ToDoList {
         this.#name = name
     }
 
+    getItems() {
+        return this.#toDoItems
+    }
+
     getName() {
         return this.#name
     }

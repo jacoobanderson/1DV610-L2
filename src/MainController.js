@@ -82,24 +82,45 @@ export class MainController {
   #createToDoItemMenu(toDoList) {
     console.log('Your current TODOs: \n')
     const toDoItems = toDoList.getItems()
-    toDoList.createToDoItem('A2 creation2')
-    toDoList.createToDoItem('A2 creation3')
-    toDoList.createToDoItem('A2 creation4')
-    toDoList.createToDoItem('A2 creation5')
 
     for (let i = 0; i < toDoItems.length; i++) {
         this.#printToDoItem(toDoItems[i])
     }
 
     const itemView = this.#getItemView()
+    const itemFunctionality = this.#getItemFunctionality(toDoList)
+    
+    this.#ui.createSubMenu(itemView, itemFunctionality)
+  }
 
+  #getItemFunctionality(toDoList) {
     const itemFunctionality = {
-        1: () => console.log('test'),
+        1: () => this.#createNewItem(toDoList),
         2: () => console.log('test'),
         3: () => console.log('test')
     }
-    
-    this.#ui.createSubMenu(itemView, itemFunctionality)
+    return itemFunctionality
+  }
+
+
+  #printItemDescriptionQuestion() {
+    console.log('What is the description of the TODO item?')
+    const description = this.#promptUser()
+    return description
+  }
+
+  #printItemDeadlineQuestion() {
+    console.log('When is the deadline for this TODO item?')
+    const deadline = this.#promptUser()
+    return deadline
+  }
+
+  #createNewItem(toDoList) {
+    const description =  this.#printItemDescriptionQuestion()
+    const deadline = this.#printItemDeadlineQuestion()
+    const isDone = false
+    toDoList.createToDoItem(description, deadline, isDone)
+    this.#returnToMainMenu()
   }
 
   #getItemView() {

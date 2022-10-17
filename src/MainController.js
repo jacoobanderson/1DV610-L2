@@ -91,11 +91,7 @@ export class MainController {
         this.#printToDoItem(toDoItems[i])
     }
 
-    const itemView = {
-        1: '\nCreate a new TODO item',
-        2: 'Edit a TODO item',
-        3: 'Remove a TODO item'
-    }
+    const itemView = this.#getItemView()
 
     const itemFunctionality = {
         1: () => console.log('test'),
@@ -104,6 +100,15 @@ export class MainController {
     }
     
     this.#ui.createSubMenu(itemView, itemFunctionality)
+  }
+
+  #getItemView() {
+    const itemView = {
+        1: '\nCreate a new TODO item',
+        2: 'Edit a TODO item',
+        3: 'Remove a TODO item'
+    }
+    return itemView
   }
 
   #promptUserForListName() {

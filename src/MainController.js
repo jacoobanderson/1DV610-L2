@@ -103,11 +103,22 @@ export class MainController {
     const itemFunctionality = {
       1: () => this.#createNewItem(toDoList),
       2: () => this.#createEditItemSubMenu(toDoItems),
-      3: () => console.log("test"),
+      3: () => this.#removeItem(toDoList),
     }
     return itemFunctionality
   }
 
+  #removeItem(toDoList) {
+    const itemIndex = this.#printRemoveItemQuestion() - 1
+    toDoList.removeToDoItem(itemIndex)
+    this.#returnToMainMenu()
+  }
+
+  #printRemoveItemQuestion() {
+    console.log('Which item do you wish to remove?')
+    const input = this.#promptUser()
+    return input
+  }
   #printItemDescriptionQuestion() {
     console.log("What is the description of the TODO item?")
     const description = this.#promptUser()

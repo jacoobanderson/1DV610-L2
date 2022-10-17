@@ -74,23 +74,18 @@ export class MainController {
   }
 
   #getRandomTask(toDoList) {
-    try {
-        
-        const randomTask = toDoList.getRandomTask()
-    
-        if (randomTask) {
+    const randomTask = toDoList.getRandomTask()
+
+    if (randomTask) {
+        this.#view.printToDoItem(randomTask)
+
+        while (this.#view.printRandomItemQuestion()) {
+            const randomTask = toDoList.getRandomTask()
             this.#view.printToDoItem(randomTask)
-    
-            while (this.#view.printRandomItemQuestion()) {
-                const randomTask = toDoList.getRandomTask()
-                this.#view.printToDoItem(randomTask)
-            }
-        } else {
-            this.#view.printRandomItemError()
-            this.#returnToMainMenu()
         }
-    } catch (error) {
-        console.log(error)
+    } else {
+        this.#view.printRandomItemError()
+        this.#returnToMainMenu()
     }
   }
 
@@ -186,6 +181,8 @@ export class MainController {
   start() {
     this.#createWelcomeMessage()
     this.#createMainMenu()
+    this.#ui.addReturnToMenuOption()
+    this.#ui.addExitOption()
     this.#ui.start()
   }
 }

@@ -24,6 +24,7 @@ export class ToDoView {
       1: "Create a new TODO item",
       2: "Edit a TODO item",
       3: "Remove a TODO item",
+      4: "Get a random task to do!"
     }
     return itemView
   }
@@ -92,6 +93,19 @@ export class ToDoView {
     const deadline = toDoItem.getDeadline()
 
     console.log(description + " (" + deadline + "): " + isDoneOrNot + " " + progression)
+  }
+
+  printRandomItemQuestion() {
+    console.log('Do you wish to randomize again? (yes/no)')
+    const input = this.#promptUser().toLowerCase()
+    if (input === 'yes') {
+        return true
+    }
+    return false
+  }
+
+  printRandomItemError() {
+    console.log('There are no items available in this list.')
   }
 
   promptUserForListName() {

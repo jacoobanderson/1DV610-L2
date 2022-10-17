@@ -38,4 +38,14 @@ export class ToDoList {
         item.setDescription()
     }
 
+    #getRandomItemListIndex() {
+        const lengthOfList = this.#toDoItems.length
+        return Math.floor(Math.random() * lengthOfList)
+    }
+
+    getRandomTask() {
+        const randomIndex = this.#getRandomItemListIndex()
+        return this.#toDoItems[randomIndex]
+    }
+
 }

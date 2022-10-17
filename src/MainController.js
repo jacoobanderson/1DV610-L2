@@ -68,8 +68,30 @@ export class MainController {
       1: () => this.#createNewItem(toDoList),
       2: () => this.#createEditItemSubMenu(toDoItems),
       3: () => this.#removeItem(toDoList),
+      4: () => this.#getRandomTask(toDoList)
     }
     return itemFunctionality
+  }
+
+  #getRandomTask(toDoList) {
+    try {
+        
+        const randomTask = toDoList.getRandomTask()
+    
+        if (randomTask) {
+            this.#view.printToDoItem(randomTask)
+    
+            while (this.#view.printRandomItemQuestion()) {
+                const randomTask = toDoList.getRandomTask()
+                this.#view.printToDoItem(randomTask)
+            }
+        } else {
+            this.#view.printRandomItemError()
+            this.#returnToMainMenu()
+        }
+    } catch (error) {
+        console.log(error)
+    }
   }
 
   #removeItem(toDoList) {
@@ -111,13 +133,8 @@ export class MainController {
   }
 
   #advanceProgression(toDoItem) {
-    try {
-        toDoItem.advanceProgression()
-        this.#returnToMainMenu()
-    } catch (error) {
-        console.log(error)
-    }
-
+    toDoItem.advanceProgression()
+    this.#returnToMainMenu()
   }
 
   #changeItemDescription(toDoItem) {

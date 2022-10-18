@@ -1,5 +1,5 @@
 import prompt from "prompt-sync"
-import { ToDoItem } from "./ToDoItem"
+import { ToDoItem } from "./ToDoItem.js"
 
 export class ToDoView {
   /**

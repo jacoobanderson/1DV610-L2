@@ -8,16 +8,16 @@ This application is a tool which can help people keep track of their tasks and a
 
 ## Requirements
 
-F1. The user should be able to create a TODO list.
-F2. The list should contain what to do and the deadline.
-F3. The user should be able to create, remove and update the TODO items.
-F4. The user should be able to mark the TODO as finished.
-F5. The user should be able to advance the progression of the task.
-F6. If the task progression is 100% the task should be set to done.
-F7. The user should be able to get a random task suggestion.
-F8. The user should be able to keep randomizing tasks.
-F9. The user should be able to exit the program.
-F10. The user should be able to return to the main menu. 
+F1. The user should be able to create a TODO list. </br>
+F2. The list should contain what to do and the deadline. </br>
+F3. The user should be able to create, remove and update the TODO items. </br>
+F4. The user should be able to mark the TODO as finished. </br>
+F5. The user should be able to advance the progression of the task. </br>
+F6. If the task progression is 100% the task should be set to done. </br>
+F7. The user should be able to get a random task suggestion. </br>
+F8. The user should be able to keep randomizing tasks. </br>
+F9. The user should be able to exit the program. </br>
+F10. The user should be able to return to the main menu. </br>
 F11. When the user has marked a task as done, the progression should be removed.
 
 ### Testfall

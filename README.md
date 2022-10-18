@@ -1,3 +1,6 @@
+## L1 MODULE USED
+https://github.com/jacoobanderson/1DV610-L1
+
 ## Description of application
 This application is a tool which can help people keep track of their tasks and allow them to structure their work. The users can create different lists of related things to do as well as create, remove and edit tasks in these lists. There are two parts of this application that are supposed to encourage the user to do their tasks:
 

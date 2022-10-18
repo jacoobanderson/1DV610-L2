@@ -163,6 +163,7 @@ export class ToDoView {
   printRandomItemQuestion() {
     console.log('Do you wish to randomize again? (yes/no)')
     const input = this.#promptUser().toLowerCase()
+
     if (input === 'yes') {
         return true
     }

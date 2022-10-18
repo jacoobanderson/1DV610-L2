@@ -20,7 +20,6 @@ The ToDoView handles all printing and basically the view as well as input in the
 
 The application has several parts which can be improved such as error handling in a better and more effective way. The functionality can be extended and the application can allow for more things that aligns with the vision of the app, simplifying tasks, deadlines etc. New functionality and more complex tools could be implemented that is related to the subject.
 
-
 ## Requirements
 
 F1. The user should be able to create a TODO list. </br>
@@ -35,7 +34,7 @@ F9. The user should be able to exit the program. </br>
 F10. The user should be able to return to the main menu. </br>
 F11. When the user has marked a task as done, the progression should be removed.
 
-### Testfall
+### Test cases
 ​
 | Vad testas      | input | output | utfall PASS/FAIL |
 | --------- | --------- | ------ | ------- |

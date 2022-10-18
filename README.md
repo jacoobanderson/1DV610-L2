@@ -18,3 +18,4 @@ This application is a tool which can help people keep track of their tasks and a
 8. The user should be able to keep randomizing tasks.
 9. The user should be able to exit the program.
 10. The user should be able to return to the main menu. 
+11. When the user has marked a task as done, the progression should be removed.
